@@ -1,0 +1,148 @@
+#install.packages("DataExplorer")
+#install.packages("dplyr")
+
+library(DataExplorer)
+library(dplyr)
+
+##############################################
+#####                          ###############
+#####         Load Data        ###############
+#####        Basic details     ###############
+#####                          ###############
+##############################################
+
+#Set working directory Beers directory
+BeersDIR <- setwd("C:/Users/James/Documents/SMU/MSDS_6306_Doing_Data_Science/gitprojects/MSDS_6306_GroupProjects/Beers/")
+
+#Read CSV file into R
+Beers <- read.csv("Beers.csv", header=TRUE, sep=",")
+Breweries <- read.csv("Breweries.csv", header=TRUE, sep=",")
+
+#find dimensions of data frames
+dim(Beers)
+dim(Breweries)
+
+#list column names of data frames
+colnames(Beers)
+colnames(Breweries)
+
+##############################################
+#####                          ###############
+#####         Question 1       ###############
+#####    Breweries per state   ###############
+#####                          ###############
+##############################################
+#count of breweriews by state
+BreweryCounts <- data.frame(table(Breweries$State))
+
+#rename column names
+colnames(BreweryCounts)[colnames(BreweryCounts)=='Var1'] <- 'State'
+colnames(BreweryCounts)[colnames(BreweryCounts)=='Freq'] <- 'NumberOfBreweriesByState'
+
+#sort data frame by brewery counts 
+BreweryCounts <- BreweryCounts[order(BreweryCounts$NumberOfBreweriesByState, decreasing=TRUE),c(1,2)]
+BreweryCounts
+
+##############################################
+#####                          ###############
+#####         Question 2       ###############
+#####       Merge Data Sets    ###############
+#####                          ###############
+##############################################
+
+#join data on Brewery_id and Brew_ID 
+BeersAndBreweries <- merge(Beers, Breweries, by.x=("Brewery_id"), by.y=("Brew_ID"))
+
+#list column names on the joined data frame
+colnames(BeersAndBreweries)
+
+#rename the name.x(Beer) and name.y(Brewery) after the merger
+colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.x'] <- 'BeerName'
+colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.y'] <- 'BreweryName'
+
+#find dimensions of data frames
+dim(BeersAndBreweries)
+
+#Show first and last 6 entries
+head(BeersAndBreweries)
+tail(BeersAndBreweries)
+
+##############################################
+#####                          ###############
+#####         Question 3       ###############
+#####    Report NAs in columns ###############
+#####                          ###############
+##############################################
+
+#Graphical representation of missing vaules using 'DataExporer' library
+plot_missing(BeersAndBreweries, title = "Percent of Missing Values")
+
+#Function to count all NA's in columns (stole from the internet)
+#http://www.gettinggeneticsdone.com/2011/02/summarize-missing-data-for-all.html
+propmiss <- function(dataframe) {
+  m <- sapply(dataframe, function(x) {
+    data.frame(
+      na_count=sum(is.na(x)),
+      Obs=length(x), 
+      perc_missing=sum(is.na(x))/length(x)*100
+    )
+  })
+  d <- data.frame(t(m))
+  d <- sapply(d, unlist)
+  d <- as.data.frame(d)
+  d$variable <- row.names(d)
+  row.names(d) <- NULL
+  d <- cbind(d[ncol(d)],d[-ncol(d)])
+  return(d[order(d$na_count, decreasing=TRUE), ])
+}
+
+#show results of NA's counted
+BeerColumnInventory_nacount <- propmiss(BeersAndBreweries)
+BeerColumnInventory_nacount
+
+##############################################
+#####                          ###############
+#####         Question 4       ###############
+#####     Calc Median ABV&IBV  ###############
+#####   by state and bar chart ###############
+##############################################
+
+#Make data frame with only State, ABV, IBU
+MEDIAN_ABV_IBU <- BeersAndBreweries[,c("State","ABV","IBU")]
+
+#remove any rows with a NA value using 'complete.cases'
+MEDIAN_ABV_IBU <- MEDIAN_ABV_IBU[complete.cases(MEDIAN_ABV_IBU),]
+
+#Calculate MEDIAN values for ABV&IBU by Stae
+MEDIAN_ABV_IBU <- aggregate(MEDIAN_ABV_IBU[, 2:3],list(MEDIAN_ABV_IBU$State), mean)
+
+#Rename column names
+colnames(MEDIAN_ABV_IBU)[colnames(MEDIAN_ABV_IBU)=='Group.1'] <- 'State'
+colnames(MEDIAN_ABV_IBU)[colnames(MEDIAN_ABV_IBU)=='ABV'] <- 'Median_ABV'
+colnames(MEDIAN_ABV_IBU)[colnames(MEDIAN_ABV_IBU)=='IBU'] <- 'Median_IBU'
+
+head(MEDIAN_ABV_IBU,10)
+
+#######  Need to PLOT Data   #########
+
+##############################################
+#####                          ###############
+#####     Question 5           ###############
+##### Calc Min & MAX ABV&IBV   ###############
+#####      By state            ###############
+##############################################
+
+#Find MAX ABV with State
+MAX_ABV_byState <- head(BeersAndBreweries[order(BeersAndBreweries$ABV, na.last = TRUE, decreasing=TRUE),c(10,4)],1)
+MAX_ABV_byState
+
+#Find MAX IBU with State, column has missing values
+MAX_IBU_byState <- head(BeersAndBreweries[order(BeersAndBreweries$IBU, na.last = TRUE, decreasing=TRUE),c(10,5)],1)
+MAX_IBU_byState
+
+##############################################
+#####                          ###############
+#####     Question 6           ###############
+##### Summary of ABV Variable  ###############
+#####                          ###############
+##############################################

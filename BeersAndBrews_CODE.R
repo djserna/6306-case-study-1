@@ -211,11 +211,11 @@ head(DF_ABV_IBU_noNA)
 
 #Scatter plot ABV vs IBU and color by StateRegion
 ABUvsIBU <- qplot(ABV, IBU, 
-                  xlab = "ABV (Alcholo Content)",
-                  ylab = "IBU (Bitterness)",
-                  main= "ABV vs IBU", 
-                  colour=StateRegion,
-                  data=DF_ABV_IBU_noNA)
+      xlab = "ABV (Alcholo Content)",
+      ylab = "IBU (Bitterness)",
+      main= "ABV vs IBU", 
+      colour=StateRegion,
+      data=DF_ABV_IBU_noNA)
 
 #Show Scatter Plot
 ABUvsIBU

@@ -147,16 +147,28 @@ colnames(MEDIAN_ABV_IBU_by_State)[colnames(MEDIAN_ABV_IBU_by_State)=='IBU'] <- '
 head(MEDIAN_ABV_IBU_by_State,10)
 
 #######  Plot MEDIAN ABV By STate   #########
-BarPlot_ABV_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State, aes(x=reorder(State, Median_ABV), y=Median_ABV)) +
-  geom_bar(stat="identity")
+BarPlot_ABV_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State, 
+                              aes(x=reorder(State, Median_ABV), 
+                                  y=Median_ABV)) +
+                                  geom_bar(stat="identity")+
+                                  coord_flip() +
+                                  labs(x="State",
+                                       y="Median ABV",
+                                       title = "Median Alchol Content by State")
 BarPlot_ABV_byState
 
 #Make the categorical variable on the Y axis
 BarPlot_ABV_byState + coord_flip()
 
 #######  Plot MEDIAN IBU By STate   #########
-BarPlot_IBU_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State, aes(x=reorder(State, Median_IBU), y=Median_IBU)) +
-  geom_bar(stat="identity")
+BarPlot_IBU_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State, 
+                              aes(x=reorder(State, Median_IBU), 
+                                  y=Median_IBU)) +
+                              geom_bar(stat="identity")+
+                              coord_flip()+
+                              labs(x="State",
+                                   y="Median_IBU",
+                                   title = "Median Bitterness Content by State")
 BarPlot_IBU_byState
 
 #Make the categorical variable on the Y axis

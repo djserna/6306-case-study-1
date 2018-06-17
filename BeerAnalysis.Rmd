@@ -1,11 +1,37 @@
-#install.packages("DataExplorer")
-#install.packages("dplyr")
-#install.packages("ggplot2")
+---
+title: "Brewery Information"
+author: "James Vasquez, Daniel Serna, Kumar, Lance Derby"
+date: "June 17, 2018"
+output: html_document
+graphics: yes
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Introduction
+Craft beers have grown in popularity since the early 2000's and have skyrocketed in 2010 (Figure 1).  In the US alone there are well over 150 styles of beer with as many breweries in each state.  Knowing the pallet of potential customers can gain a brewery an edge in profit margins by staying close to what the customer wants.  This study will illuminate several of these basic statics.
+
+
+
+*    Possible audience
+    +    Investors
+    +    New brew masters
+    +    Trip advisor
+
+
+```{r Figure1, echo=TRUE}
+!(Figures/Brewery_Growth.PNG)
+```
+
+#Where and how many breweires are in the US?
+The results indicate which states may be over populated with breweries and states that have not seen a wild growth in breweries.
+
+```{r BreweriesByState, echo=TRUE}
 library(ggplot2)
 library(DataExplorer)
 library(dplyr)
-#library(knitr)
 
 ##############################################
 #####                          ###############
@@ -17,18 +43,6 @@ library(dplyr)
 #Read CSV file into R
 Beers <- read.csv("Beers.csv", header=TRUE, sep=",", strip.white = TRUE)
 Breweries <- read.csv("Breweries.csv", header=TRUE, sep=",", strip.white = TRUE)
-
-#find dimensions of data frames
-dim(Beers)
-dim(Breweries)
-
-#list column names of data frames
-colnames(Beers)
-colnames(Breweries)
-
-#Get classification
-class(Beers)
-class(Breweries)
 
 ##############################################
 #####                          ###############
@@ -66,8 +80,13 @@ colnames(BreweryCounts)[colnames(BreweryCounts)=='Freq'] <- 'NumberOfBreweriesBy
 #Merge the StateDB and sort by count of breweries by state
 BreweryCounts <- merge(BreweryCounts, StateDB, by.x=("State"), by.y=("State"))
 BreweryCounts <- BreweryCounts[order(BreweryCounts$NumberOfBreweriesByState, decreasing=TRUE),c(3,2)]
-head(BreweryCounts)
+BreweryCounts
+```
 
+#Merging Data
+The team merged both the beer and breweries data sets in order to get a better wholelistic view of the data and determine how they relate to each other.  Below will show the first and last six rows of the data sets.
+
+```{r MergeData, echo=TRUE}
 ##############################################
 #####                          ###############
 #####         Question 2       ###############
@@ -85,6 +104,18 @@ colnames(BeersAndBreweries)
 colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.x'] <- 'BeerName'
 colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.y'] <- 'BreweryName'
 
+#Create State DB data frame
+StateDB <- data.frame(state.name, state.abb, state.region)
+colnames(StateDB)[colnames(StateDB)=='state.name'] <- 'StateName'
+colnames(StateDB)[colnames(StateDB)=='state.abb'] <- 'State'
+colnames(StateDB)[colnames(StateDB)=='state.region'] <- 'StateRegion'
+
+#Add district of Columbia to StateDB Data Frame
+DistrictColumbia <- data.frame("District of Columbia","DC", "South")
+names(DistrictColumbia) <- c("StateName","State", "StateRegion")
+StateDB <- rbind(StateDB, DistrictColumbia)
+
+
 #Merge data with State DB
 BeersAndBreweries <- merge(BeersAndBreweries, StateDB, by="State", all = TRUE)
 
@@ -95,14 +126,13 @@ dim(BeersAndBreweries)
 #Show first and last 6 entries of merged files
 head(BeersAndBreweries)
 tail(BeersAndBreweries)
+```
 
-##############################################
-#####                          ###############
-#####         Question 3       ###############
-#####    Report NAs in columns ###############
-#####                          ###############
-##############################################
+#Report Missing Values
+To do a complete analysis the team needed to asses if the merged data set has any missing values.  The team created a report for both a graphical and tabular represnetation of the results.  
 
+The data shows the variables with missing data are the IBU and ABV values.
+```{r MissingValues, echo=TRUE}
 #Graphical representation of missing vaules using 'DataExporer' library
 plot_missing(BeersAndBreweries, title = "Percent of Missing Values")
 
@@ -128,14 +158,17 @@ propmiss <- function(dataframe) {
 #show results of NA's counted
 BeerColumnInventory_nacount <- propmiss(BeersAndBreweries)
 BeerColumnInventory_nacount
+```
 
-##############################################
-#####                          ###############
-#####         Question 4       ###############
-#####     Calc Median ABV&IBV  ###############
-#####   by state and bar chart ###############
-##############################################
+#Plotting Data
+The team in order to look for trends plotted the ABV and IBU against the states to determine which states had the highest median value of each of tthe states by value.
 
+*    Process to analyze
+    +    Calculate the median values of ABV & IBU by state
+    +    Plot the data against states and sort by highest value
+
+*As requested by the client all NA's have been removed*
+```{r Plotting, echo=TRUE}
 #Make data frame with only State, ABV, IBU
 DF_ABV_IBU <- BeersAndBreweries[,c("StateName","ABV","IBU")]
 head(DF_ABV_IBU)
@@ -178,13 +211,12 @@ BarPlot_IBU_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State,
                                    title = "Median Bitterness Content by State")
 BarPlot_IBU_byState
 
-##############################################
-#####                          ###############
-#####     Question 5           ###############
-##### Calc Min & MAX ABV&IBV   ###############
-#####      By state            ###############
-##############################################
+```
 
+#States with highest ABV and IBU
+For a quick reference the team identified the states with the highest ABY and IBU recorded within the data set.
+
+```{r MaxValues, echo=TRUE}
 #Find MAX ABV with State
 MAX_ABV_byState <- head(BeersAndBreweries[order(BeersAndBreweries$ABV, na.last = TRUE, decreasing=TRUE),c(11,5)],1)
 MAX_ABV_byState
@@ -192,7 +224,12 @@ MAX_ABV_byState
 #Find MAX IBU with State, column has missing values
 MAX_IBU_byState <- head(BeersAndBreweries[order(BeersAndBreweries$IBU, na.last = TRUE, decreasing=TRUE),c(11,6)],1)
 MAX_IBU_byState
+```
 
+#Summary of ABV
+As part of the analysis the team has provided the summary results for the ABV variable.
+
+```{r SummaryABV, echo=TRUE}
 ##############################################
 #####                          ###############
 #####     Question 6           ###############
@@ -205,14 +242,12 @@ SUMMARY_ABV <- summary(BeersAndBreweries$ABV)
 
 #Show ABV SUmmary
 SUMMARY_ABV
+```
 
-##############################################
-#####                          ###############
-#####     Question 7           ###############
-##### Realtionship between     ###############
-#####     ABV & IBU            ###############
-##############################################
+#Realtionship between ABV & IBU
+To determine any realtionships between ABV and IBU a scatterplot was created.  In addition the data was color coded by the region of the brewery.
 
+```{r Relationships, echo=TRUE}
 #Merge data with State DB
 DF_ABV_IBU_noNA <- merge(DF_ABV_IBU_noNA, StateDB, by="StateName", all = TRUE)
 
@@ -233,3 +268,4 @@ ABUvsIBU <- qplot(ABV, IBU,
 
 #Show Scatter Plot
 ABUvsIBU
+```

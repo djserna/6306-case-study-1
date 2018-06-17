@@ -1,6 +1,6 @@
 ---
 title: "Brewery Information"
-author: "James Vasquez, Daniel Serna, Kumar, Lance Derby"
+author: "James Vasquez, Daniel Serna, Kumar Ramasundaram, Lance Dacy"
 date: "June 17, 2018"
 output: html_document
 graphics: yes
@@ -22,7 +22,7 @@ Craft beers have grown in popularity since the early 2000's and have skyrocketed
 
 
 ```{r Figure1, echo=TRUE}
-!(Figures/Brewery_Growth.PNG)
+#!(Figures/Brewery_Growth.PNG)
 ```
 
 #Where and how many breweires are in the US?

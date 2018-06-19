@@ -186,7 +186,7 @@ DF_ABV_IBU_noNA <- DF_ABV_IBU[complete.cases(DF_ABV_IBU),]
 #head(DF_ABV_IBU_noNA) #I don't think we don't need to show this.
 
 #Calculate MEDIAN values for ABV&IBU by State
-MEDIAN_ABV_IBU_by_State <- aggregate(DF_ABV_IBU_noNA[, 2:3],list(DF_ABV_IBU_noNA$StateName), mean)
+MEDIAN_ABV_IBU_by_State <- aggregate(DF_ABV_IBU_noNA[, 2:3],list(DF_ABV_IBU_noNA$StateName), median)
 #head(MEDIAN_ABV_IBU_by_State) #I don't think we don't need to show this.
 
 #Rename column names

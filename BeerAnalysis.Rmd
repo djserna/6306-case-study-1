@@ -15,10 +15,10 @@ Craft beers have grown in popularity since the early 2000's and have skyrocketed
 
 
 
-*    Possible audience
-    +    Investors
-    +    New brew masters
-    +    Trip advisor
+* Possible audience
+    + Investors
+    + New brew masters
+    + Trip advisor
 
 
 ```{r Figure1, echo=TRUE}
@@ -189,7 +189,7 @@ colnames(MEDIAN_ABV_IBU_by_State)[colnames(MEDIAN_ABV_IBU_by_State)=='IBU'] <- '
 #Check data
 head(MEDIAN_ABV_IBU_by_State,10)
 
-#######  Plot MEDIAN ABV By STate   #########
+#######  Plot MEDIAN ABV By State   #########
 BarPlot_ABV_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State, 
                               aes(x=reorder(State, Median_ABV), 
                                   y=Median_ABV)) +
@@ -244,7 +244,7 @@ SUMMARY_ABV <- summary(BeersAndBreweries$ABV)
 SUMMARY_ABV
 ```
 
-#Realtionship between ABV & IBU
+#Relationship between ABV & IBU
 To determine any realtionships between ABV and IBU a scatterplot was created.  In addition the data was color coded by the region of the brewery.
 
 ```{r Relationships, echo=TRUE}

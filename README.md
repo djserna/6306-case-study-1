@@ -21,6 +21,18 @@ The following files were supplied by BAA.
 * City: City where the brewery is located.
 * State: U.S. State where the brewery is located.
 
+## Libraries
+In an effort to streamline the code repository we have selected a few libraries to help with the heavy lifting:
+
+### ggplot2
+[ggplot2](http://ggplot2.tidyverse.org) is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+
+### DataExplorer
+[DataExplorer](https://cran.r-project.org/web/packages/DataExplorer/index.html) is a data exploration process for data analysis and model building, so that users could focus on understanding data and extracting insights. The package automatically scans through each variable and does data profiling. Typical graphical techniques will be performed for both discrete and continuous features.
+
+### dplyr
+[dplyr](https://dplyr.tidyverse.org) is a fast, consistent tool for working with data frame like objects, both in memory and out of memory.
+
 ## Objects created
 As a result of assimilating the data in a meaningful way, various objects have been created to help ensure the results and summaries are as readable as possible.
 

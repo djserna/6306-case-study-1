@@ -1,10 +1,9 @@
 ---
-title: "Brewer's Associate of American Independent Study"
+title: "Brewer's Association of America: Independent Study"
 author: "James Vasquez, Daniel Serna, Kumar Ramasundaram, Lance Dacy"
 date: "June 17, 2018"
 output:
   html_document: default
-  pdf_document: default
 graphics: yes
 ---
 

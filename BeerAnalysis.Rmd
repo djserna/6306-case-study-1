@@ -18,7 +18,7 @@ The traditional giants have bought some craft breweries in recent years, blurrin
 
 This signifies that Craft beers have grown in popularity since the early 2000's and have skyrocketed in 2010 (see Figure 1 below).
 
-![](Figures/Brewery_Growth.PNG)
+![](Figures/Brewery_Growth_Sized.PNG)
 
 In the US alone there are well over 150 styles of beer with as many breweries in each state. Knowing the [palate](https://www.pastemagazine.com/blogs/lists/2014/09/7-ways-to-be-a-better-beer-taster.html) of potential customers can gain your brewery an edge in profit margins by staying close to what the customer wants. Even more important is that the various regions in the USA might actually have variying taste / alcohol content preferences from other regions.
 

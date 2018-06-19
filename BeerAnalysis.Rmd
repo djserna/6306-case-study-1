@@ -31,7 +31,7 @@ library(dplyr)
 ```
 
 # Question 1
-## Where and how many breweires are in the US?
+## Where and how many breweries are in the US?
 The results indicate which states may be over populated with breweries and states that have not seen a wild growth in breweries.
 
 ```{r BreweriesByState, echo=TRUE}
@@ -55,6 +55,7 @@ Breweries <- read.csv("Breweries.csv", header=TRUE, sep=",", strip.white = TRUE)
 
 #Create State DB data frame
 StateDB <- data.frame(state.name, state.abb, state.region)
+#Rename columns for readability
 colnames(StateDB)[colnames(StateDB)=='state.name'] <- 'StateName'
 colnames(StateDB)[colnames(StateDB)=='state.abb'] <- 'State'
 colnames(StateDB)[colnames(StateDB)=='state.region'] <- 'StateRegion'
@@ -64,7 +65,7 @@ DistrictColumbia <- data.frame("District of Columbia","DC", "South")
 names(DistrictColumbia) <- c("StateName","State", "StateRegion")
 StateDB <- rbind(StateDB, DistrictColumbia)
 
-head(StateDB,2)
+#head(StateDB,2) #Assuming this was for debugging purposes.
 
 ##############################################
 #####                          ###############
@@ -72,7 +73,7 @@ head(StateDB,2)
 #####    Breweries per state   ###############
 #####                          ###############
 ##############################################
-#count of breweriews by state
+#count of breweries by state
 BreweryCounts <- data.frame(table(Breweries$State))
 
 #rename column names
@@ -101,30 +102,32 @@ The team merged both the beer and breweries data sets in order to get a better w
 BeersAndBreweries <- merge(Beers, Breweries, by.x=("Brewery_id"), by.y=("Brew_ID"))
 
 #list column names on the joined data frame
-colnames(BeersAndBreweries)
+#colnames(BeersAndBreweries) #assuming this was for debugging purposes
 
 #rename the name.x(Beer) and name.y(Brewery) after the merger
 colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.x'] <- 'BeerName'
 colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.y'] <- 'BreweryName'
 
-#Create State DB data frame
-StateDB <- data.frame(state.name, state.abb, state.region)
-colnames(StateDB)[colnames(StateDB)=='state.name'] <- 'StateName'
-colnames(StateDB)[colnames(StateDB)=='state.abb'] <- 'State'
-colnames(StateDB)[colnames(StateDB)=='state.region'] <- 'StateRegion'
-
-#Add district of Columbia to StateDB Data Frame
-DistrictColumbia <- data.frame("District of Columbia","DC", "South")
-names(DistrictColumbia) <- c("StateName","State", "StateRegion")
-StateDB <- rbind(StateDB, DistrictColumbia)
+# I don't think we don't need to create this again.
+# #Create State DB data frame
+# StateDB <- data.frame(state.name, state.abb, state.region)
+# colnames(StateDB)[colnames(StateDB)=='state.name'] <- 'StateName'
+# colnames(StateDB)[colnames(StateDB)=='state.abb'] <- 'State'
+# colnames(StateDB)[colnames(StateDB)=='state.region'] <- 'StateRegion'
+# 
+# #Add district of Columbia to StateDB Data Frame
+# DistrictColumbia <- data.frame("District of Columbia","DC", "South")
+# names(DistrictColumbia) <- c("StateName","State", "StateRegion")
+# StateDB <- rbind(StateDB, DistrictColumbia)
 
 
 #Merge data with State DB
 BeersAndBreweries <- merge(BeersAndBreweries, StateDB, by="State", all = TRUE)
 
-#find dimensions of data frames
-dim(BeersAndBreweries)
-dim(BeersAndBreweries)
+# dont think we need to show this.
+# #find dimensions of data frames
+# dim(BeersAndBreweries)
+# dim(BeersAndBreweries)
 
 #Show first and last 6 entries of merged files
 head(BeersAndBreweries)
@@ -133,14 +136,14 @@ tail(BeersAndBreweries)
 
 # Question 3
 ## Report Missing Values
-To do a complete analysis the team needed to asses if the merged data set has any missing values.  The team created a report for both a graphical and tabular represnetation of the results.  
+To do a complete analysis the team needed to asses if the merged data set has any missing values.  The team created a report for both a graphical and tabular representation of the results. The team utilized code from http://www.gettinggeneticsdone.com/2011/02/summarize-missing-data-for-all.html to count NA's in columns.
 
 The data shows the variables with missing data are the IBU and ABV values.
 ```{r MissingValues, echo=TRUE}
 #Graphical representation of missing vaules using 'DataExporer' library
 plot_missing(BeersAndBreweries, title = "Percent of Missing Values")
 
-#Function to count all NA's in columns (stole from the internet)
+#Function to count all NA's in columns (sourced from the internet)
 #http://www.gettinggeneticsdone.com/2011/02/summarize-missing-data-for-all.html
 propmiss <- function(dataframe) {
   m <- sapply(dataframe, function(x) {
@@ -176,15 +179,15 @@ The team in order to look for trends plotted the ABV and IBU against the states 
 ```{r Plotting, echo=TRUE}
 #Make data frame with only State, ABV, IBU
 DF_ABV_IBU <- BeersAndBreweries[,c("StateName","ABV","IBU")]
-head(DF_ABV_IBU)
+#head(DF_ABV_IBU)  #I don't think we don't need to show this.
 
 #remove any rows with a NA value using 'complete.cases'
 DF_ABV_IBU_noNA <- DF_ABV_IBU[complete.cases(DF_ABV_IBU),]
-head(DF_ABV_IBU_noNA)
+#head(DF_ABV_IBU_noNA) #I don't think we don't need to show this.
 
 #Calculate MEDIAN values for ABV&IBU by State
 MEDIAN_ABV_IBU_by_State <- aggregate(DF_ABV_IBU_noNA[, 2:3],list(DF_ABV_IBU_noNA$StateName), mean)
-head(MEDIAN_ABV_IBU_by_State)
+#head(MEDIAN_ABV_IBU_by_State) #I don't think we don't need to show this.
 
 #Rename column names
 colnames(MEDIAN_ABV_IBU_by_State)[colnames(MEDIAN_ABV_IBU_by_State)=='Group.1'] <- 'State'
@@ -192,7 +195,7 @@ colnames(MEDIAN_ABV_IBU_by_State)[colnames(MEDIAN_ABV_IBU_by_State)=='ABV'] <- '
 colnames(MEDIAN_ABV_IBU_by_State)[colnames(MEDIAN_ABV_IBU_by_State)=='IBU'] <- 'Median_IBU'
 
 #Check data
-head(MEDIAN_ABV_IBU_by_State,10)
+#head(MEDIAN_ABV_IBU_by_State,10) #I don't think we don't need to show this.
 
 #######  Plot MEDIAN ABV By State   #########
 BarPlot_ABV_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State, 

@@ -32,31 +32,18 @@ library(DataExplorer)
 library(dplyr)
 ```
 
-# Question 1
-## Where and how many breweries are in the US?
-The results indicate which states may be over populated with breweries and states that have not seen a wild growth in breweries.
+## Brewery Count and Location
+The first question to answer for the BAA was how many breweries are their in the USA and what is their location. The results indicate which states may be over populated with breweries and states that have not seen a wild growth in breweries. This is beneficial in determining which market to target based on saturation.
 
 ```{r BreweriesByState, echo=TRUE}
-##############################################
-#####                          ###############
-#####         Load Data        ###############
-#####        Basic details     ###############
-#####                          ###############
-##############################################
 
-#Read CSV file into R
+#Read both raw CSV files into R for data tidying and maniupulation
 Beers <- read.csv("Beers.csv", header=TRUE, sep=",", strip.white = TRUE)
 Breweries <- read.csv("Breweries.csv", header=TRUE, sep=",", strip.white = TRUE)
 
-##############################################
-#####                          ###############
-#####                          ###############
-#####    Make State DB         ###############
-#####                          ###############
-##############################################
-
 #Create State DB data frame
 StateDB <- data.frame(state.name, state.abb, state.region)
+
 #Rename columns for readability
 colnames(StateDB)[colnames(StateDB)=='state.name'] <- 'StateName'
 colnames(StateDB)[colnames(StateDB)=='state.abb'] <- 'State'
@@ -67,15 +54,7 @@ DistrictColumbia <- data.frame("District of Columbia","DC", "South")
 names(DistrictColumbia) <- c("StateName","State", "StateRegion")
 StateDB <- rbind(StateDB, DistrictColumbia)
 
-#head(StateDB,2) #Assuming this was for debugging purposes.
-
-##############################################
-#####                          ###############
-#####         Question 1       ###############
-#####    Breweries per state   ###############
-#####                          ###############
-##############################################
-#count of breweries by state
+#Create object to hold the counts of breweries by state
 BreweryCounts <- data.frame(table(Breweries$State))
 
 #rename column names

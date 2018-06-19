@@ -208,7 +208,7 @@ BarPlot_ABV_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State,
                                        title = "Median Alchol Content by State")
 BarPlot_ABV_byState
 
-#######  Plot MEDIAN IBU By STate   #########
+#######  Plot MEDIAN IBU By State   #########
 BarPlot_IBU_byState <- ggplot(data=MEDIAN_ABV_IBU_by_State, 
                               aes(x=reorder(State, Median_IBU), 
                                   y=Median_IBU)) +
@@ -265,13 +265,14 @@ DF_ABV_IBU_noNA <- merge(DF_ABV_IBU_noNA, StateDB, by="StateName", all = TRUE)
 #Remove rows with NA's
 DF_ABV_IBU_noNA <- DF_ABV_IBU_noNA[complete.cases(DF_ABV_IBU_noNA),]
 
+# I don't think we need to show this.
 #Check merge and top of the file
-propmiss(DF_ABV_IBU_noNA)
-head(DF_ABV_IBU_noNA)
+# propmiss(DF_ABV_IBU_noNA)
+# head(DF_ABV_IBU_noNA)
 
 #Scatter plot ABV vs IBU and color by StateRegion
 ABUvsIBU <- qplot(ABV, IBU, 
-                  xlab = "ABV (Alcholo Content)",
+                  xlab = "ABV (Alcohol Content)",
                   ylab = "IBU (Bitterness)",
                   main= "ABV vs IBU", 
                   colour=StateRegion,

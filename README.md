@@ -6,11 +6,13 @@ The following files were supplied by BAA.
 
 ### Beers.csv
 
-Name: Name of the beer.
-Beer_ID: Unique identifier of the beer.
-ABV: Alcohol by volume of the beer.
-IBU: International Bitterness Units of the beer. Brewery_ID: Brewery id associated with the beer. Style: Style of the beer.
-Ounces: Ounces of beer.
+* Name: Name of the beer.
+* Beer_ID: Unique identifier of the beer.
+* ABV: Alcohol by volume of the beer.
+* IBU: International Bitterness Units of the beer. 
+* Brewery_ID: Brewery id associated with the beer. 
+* Style: Style of the beer.
+* Ounces: Ounces of beer.
 
 ### Breweries.csv
 

@@ -1,8 +1,10 @@
 ---
-title: "Brewery Information"
+title: "Brewer's Associate of American Independent Study"
 author: "James Vasquez, Daniel Serna, Kumar Ramasundaram, Lance Dacy"
 date: "June 17, 2018"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 graphics: yes
 ---
 
@@ -11,17 +13,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Introduction
-Craft beers have grown in popularity since the early 2000's and have skyrocketed in 2010 (Figure 1).  In the US alone there are well over 150 styles of beer with as many breweries in each state.  Knowing the pallet of potential customers can gain a brewery an edge in profit margins by staying close to what the customer wants.  This study will illuminate several of these basic statics.
+According to a recent [article in Forbes](https://www.forbes.com/sites/garystoller/2018/03/20/craft-breweries-dominate-the-top-50-but-guess-which-giants-rule-the-beer-market/#3b6528dedcad), MillerCoors _(which owns Blue Moon, Pilsener Urquell and numerous brands besides Miller and Coors products)_, ranks No. 2 in volume of beer produced for sale. Constellation Brands is No. 3 with its various brands, including Corona and Modelo. 
 
+The traditional giants have bought some craft breweries in recent years, blurring the lines between craft and non-craft brewing companies. Anheuser-Busch bought 10 Barrel Brewing of Bend, Oregon, and Constellation Brands purchased Sand Diego-based Ballast Point for $1 billion.
 
-
-* Possible audience
-    + Investors
-    + New brew masters
-    + Trip advisor
-
+This signifies that Craft beers have grown in popularity since the early 2000's and have skyrocketed in 2010 (see Figure 1 below).
 
 ![](Figures/Brewery_Growth.PNG)
+
+In the US alone there are well over 150 styles of beer with as many breweries in each state. Knowing the [palate](https://www.pastemagazine.com/blogs/lists/2014/09/7-ways-to-be-a-better-beer-taster.html) of potential customers can gain your brewery an edge in profit margins by staying close to what the customer wants. Even more important is that the various regions in the USA might actually have variying taste / alcohol content preferences from other regions.
+
+[Brewer's Association of America](https://www.brewersassociation.org), has supplied data and various questions to __JVKRDSLD and Associates__ to conduct a study for would-be investors to better understand the chances of product success in today's hyper-competative market.
 
 ```{r LoadLibraries}
 #Load necessary libraries for the project.

@@ -21,9 +21,7 @@ Craft beers have grown in popularity since the early 2000's and have skyrocketed
     + Trip advisor
 
 
-```{r Figure1, echo=TRUE}
-#!(Figures/Brewery_Growth.PNG)
-```
+![](Figures/Brewery_Growth.PNG)
 
 #Where and how many breweires are in the US?
 The results indicate which states may be over populated with breweries and states that have not seen a wild growth in breweries.

@@ -77,18 +77,6 @@ BeersAndBreweries <- merge(Beers, Breweries, by.x=("Brewery_id"), by.y=("Brew_ID
 colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.x'] <- 'BeerName'
 colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.y'] <- 'BreweryName'
 
-# I don't think we don't need to create this again.
-# #Create State DB data frame
-# StateDB <- data.frame(state.name, state.abb, state.region)
-# colnames(StateDB)[colnames(StateDB)=='state.name'] <- 'StateName'
-# colnames(StateDB)[colnames(StateDB)=='state.abb'] <- 'State'
-# colnames(StateDB)[colnames(StateDB)=='state.region'] <- 'StateRegion'
-# 
-# #Add district of Columbia to StateDB Data Frame
-# DistrictColumbia <- data.frame("District of Columbia","DC", "South")
-# names(DistrictColumbia) <- c("StateName","State", "StateRegion")
-# StateDB <- rbind(StateDB, DistrictColumbia)
-
 #Merge data with State DB
 BeersAndBreweries <- merge(BeersAndBreweries, StateDB, by="State", all = TRUE)
 
@@ -132,7 +120,7 @@ BeerColumnInventory_nacount <- propmiss(BeersAndBreweries)
 BeerColumnInventory_nacount
 ```
 
-## Visiual Display of the Data
+## Visual Display of the Data
 To look for trends in the newly described dataset, the team plotted the ABV and IBU against the states to determine which states had the highest median value. *As requested by the client, all of the NA's have been removed*
 
 * Process of obtating the median values

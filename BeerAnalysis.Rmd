@@ -30,6 +30,7 @@ In the US alone there are well over 150 styles of beer with as many breweries in
 library(ggplot2)
 library(DataExplorer)
 library(dplyr)
+library(usmap)
 ```
 
 ## Brewery Count and Location
@@ -64,6 +65,19 @@ colnames(BreweryCounts)[colnames(BreweryCounts)=='Freq'] <- 'NumberOfBreweriesBy
 BreweryCounts <- merge(BreweryCounts, StateDB, by.x=("State"), by.y=("State"))
 BreweryCounts <- BreweryCounts[order(BreweryCounts$NumberOfBreweriesByState, decreasing=TRUE),c(3,2)]
 BreweryCounts
+
+#Merge BreweryCounts to the statepop data set by state name
+BreweryCountsMap <- merge(statepop, BreweryCounts, by.x=("full"), by.y=("StateName"))
+
+#Plot states and color by brewery counts
+usmap::plot_usmap(data = BreweryCountsMap,
+                        values = "NumberOfBreweriesByState",
+                        lines = "black") + scale_fill_continuous(
+                        low = "green",
+                        high = "red",
+                        name = "Brewery Count",
+                        label = scales::comma) + theme(legend.position = "right")+
+                        labs(title = "Number of Breweries per State")
 ```
 
 ## Making Sense of the Data

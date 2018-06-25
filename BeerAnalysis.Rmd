@@ -180,9 +180,8 @@ BarPlot_IBU_byState
 
 ```
 
-# Question 5
 ## States with highest ABV and IBU
-For a quick reference the team identified the states with the highest ABY and IBU recorded within the data set.
+Beer has a few indicators that help us understand a bit more about the beer without having to sample each and every beer for comparison. People naturally have different tastes and preferences for the types of beer they enjoy. Alcohol by Volume (ABV) and International Bittnerness Units (IBU) are some of the most common variables we use to identify the personality of the beer without have to necessarily taste it. A good start is to look at the state that has the highest ABV and IBU respectively. We can deduce the preference of the location based on those factors.
 
 ```{r MaxValues, echo=TRUE}
 #Find MAX ABV with State
@@ -194,18 +193,10 @@ MAX_IBU_byState <- head(BeersAndBreweries[order(BeersAndBreweries$IBU, na.last =
 MAX_IBU_byState
 ```
 
-# Question 6
 ## Summary of ABV
-As part of the analysis the team has provided the summary results for the ABV variable.
+As requested, the client prferred to see summary statistics of the summary variable of ABV. 
 
 ```{r SummaryABV, echo=TRUE}
-##############################################
-#####                          ###############
-#####     Question 6           ###############
-##### Summary of ABV Variable  ###############
-#####                          ###############
-##############################################
-
 #Summary Stats of the ABV variable
 SUMMARY_ABV <- summary(BeersAndBreweries$ABV)
 
@@ -213,9 +204,8 @@ SUMMARY_ABV <- summary(BeersAndBreweries$ABV)
 SUMMARY_ABV
 ```
 
-# Question 7
 ## Relationship between ABV & IBU
-To determine any realtionships between ABV and IBU a scatterplot was created.  In addition the data was color coded by the region of the brewery.
+To sum up the request, a scatter plot of the data by region will help the organization determine the relationship between the ABV and IBU. We have color coded the regions as well to help identify the relationship overall as well as by region. It appears that the more ABV we have the more IBU can be expected. We can also deduce a preference by most people to have minimal IBU and ABV. 
 
 ```{r Relationships, echo=TRUE}
 #Merge data with State DB

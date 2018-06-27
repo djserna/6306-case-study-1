@@ -2,7 +2,7 @@
 title: "Brewer's Association of America"
 subtitle: "Predicting Craft Beer Preferences"
 author: "James Vasquez, Daniel Serna, Kumar Ramasundaram, Lance Dacy"
-date: "June 17, 2018"
+date: "June 28, 2018"
 output:
   html_document: default
 graphics: yes
@@ -27,10 +27,19 @@ In the US alone there are well over 150 styles of beer with as many breweries in
 
 ```{r LoadLibraries}
 #Load necessary libraries for the project.
-library(ggplot2)
-library(DataExplorer)
-library(dplyr)
-library(usmap)
+#Install the ggplot2 package if it is not already installed.
+if(!require(ggplot2)) install.packages("ggplot2", repos = "https://cran.rstudio.com/bin/windows/contrib/3.5/ggplot2_2.2.1.zip")
+#Install the DataExplorer package if it is not already installed.
+if(!require(DataExplorer)) install.packages("DateExplorer", repos = "https://cran.rstudio.com/bin/windows/contrib/3.5/DataExplorer_0.6.0.zip")
+#Install the dplyr package if it is not already installed.
+if(!require(dplyr)) install.packages("dplyer", repos = "https://cran.rstudio.com/bin/windows/contrib/3.5/dplyr_0.7.5.zip")
+#Install the usmap package if it is not already installed.
+if(!require(usmap)) install.packages("usmap", repos = "https://cran.rstudio.com/bin/windows/contrib/3.5/usmap_0.3.0.zip")
+
+# library(ggplot2)
+# library(DataExplorer)
+# library(dplyr)
+# library(usmap)
 ```
 
 ## Brewery Count and Location
@@ -93,11 +102,6 @@ colnames(BeersAndBreweries)[colnames(BeersAndBreweries)=='Name.y'] <- 'BreweryNa
 
 #Merge data with State DB
 BeersAndBreweries <- merge(BeersAndBreweries, StateDB, by="State", all = TRUE)
-
-# dont think we need to show this.
-# #find dimensions of data frames
-# dim(BeersAndBreweries)
-# dim(BeersAndBreweries)
 
 #Show first and last 6 entries of merged files
 head(BeersAndBreweries)
@@ -214,11 +218,6 @@ DF_ABV_IBU_noNA <- merge(DF_ABV_IBU_noNA, StateDB, by="StateName", all = TRUE)
 #Remove rows with NA's
 DF_ABV_IBU_noNA <- DF_ABV_IBU_noNA[complete.cases(DF_ABV_IBU_noNA),]
 
-# I don't think we need to show this.
-#Check merge and top of the file
-# propmiss(DF_ABV_IBU_noNA)
-# head(DF_ABV_IBU_noNA)
-
 #Scatter plot ABV vs IBU and color by StateRegion
 ABUvsIBU <- qplot(ABV, IBU, 
                   xlab = "ABV (Alcohol Content)",
@@ -229,4 +228,10 @@ ABUvsIBU <- qplot(ABV, IBU,
 
 #Show Scatter Plot
 ABUvsIBU
+```
+
+## Session Information
+```{r session, echo=TRUE}
+#r session information
+sessionInfo()
 ```

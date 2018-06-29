@@ -30,7 +30,7 @@ In the US alone there are well over 150 styles of beer with as many breweries in
 #Install the ggplot2 package if it is not already installed.
 if(!require(ggplot2)) install.packages("ggplot2", repos = "https://cran.rstudio.com/bin/windows/contrib/3.5/ggplot2_2.2.1.zip")
 #Install the DataExplorer package if it is not already installed.
-if(!require(DataExplorer)) install.packages("DateExplorer", repos = "https://cran.rstudio.com/bin/windows/contrib/3.5/DataExplorer_0.6.0.zip")
+if(!require(DataExplorer)) install.packages("DataExplorer", repos = "https://cran.rstudio.com/bin/windows/contrib/3.5/DataExplorer_0.6.0.zip")
 #Install the dplyr package if it is not already installed.
 if(!require(dplyr)) install.packages("dplyer", repos = "https://cran.rstudio.com/bin/windows/contrib/3.5/dplyr_0.7.5.zip")
 #Install the usmap package if it is not already installed.
